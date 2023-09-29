@@ -35,7 +35,7 @@ const UsersTable =async ({sortOrder}:Props) => {
     </thead>
     <tbody>
             {sortedUsers.map((user,index)=>(<tr key={index} className="hover:bg-gray-100 transition duration-150 ease-in-out">
-                <td className="py-2 px-4 border-b border-gray-200" ><Link href={`/users/${user.id}`}>{user.name}</Link></td>
+                <td className="py-2 px-4 border-b border-gray-200" ><Link href={`/users/${user.id}`} className="hover:text-red-500">{user.name}</Link></td>
                 <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
                 
 
