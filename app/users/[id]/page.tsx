@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from 'react'
 
 interface Props{
@@ -18,6 +19,10 @@ interface Post{
    
 }
 
+interface Photo{
+    thumbnailUrl: string 
+}
+
 const UserDetailPage =async ({params:{id}}:Props) => {
     //fetching 
  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
@@ -25,15 +30,27 @@ const UserDetailPage =async ({params:{id}}:Props) => {
 
  const data = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
  const post :Post = await data.json()
+
+ const photodata = await fetch(`https://jsonplaceholder.typicode.com/photos/${id}`)
+ const photo :Photo = await photodata.json()
+    console.log(photo);
+
   return (
     <>
-     <ul>
-    <li>{user.name}</li>
-    <li>{user.email}</li>
-    <li>{user.phone}</li>
-   </ul>
-   <h1>{post.title}</h1>
-   <p>{post.body}</p>
+    <div className="max-w-sm rounded overflow-hidden shadow-lg mx-auto mt-10">
+  <Image src={photo.thumbnailUrl} alt='' width={150} height={150}/>
+  <div className="px-6 py-4">
+    <div className="font-bold text-xl mb-2">{post.title}</div>
+    <p className="text-gray-700 text-base">
+      {post.body}
+    </p>
+  </div>
+  <div className="px-6 pt-4 pb-2">
+    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{user.name}</span>
+    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{user.email}</span>
+    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{user.phone}</span>
+  </div>
+</div>
     </>
   
    
