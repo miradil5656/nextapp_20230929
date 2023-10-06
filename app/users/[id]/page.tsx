@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import React from 'react'
 
 interface Props{
@@ -33,7 +34,9 @@ const UserDetailPage =async ({params:{id}}:Props) => {
 
  const photodata = await fetch(`https://jsonplaceholder.typicode.com/photos/${id}`)
  const photo :Photo = await photodata.json()
-    console.log(photo);
+   
+
+  if (id > 10) notFound()
 
   return (
     <>
